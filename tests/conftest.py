@@ -1,7 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, declarative_base
 from sqlalchemy_utils import database_exists, drop_database, create_database
 from data import database, models
 from main import app
@@ -9,9 +9,10 @@ from main import app
 @pytest.fixture(scope="session")
 def db_engine():
     engine = create_engine("sqlite:///test.sqlite")
+    base = declarative_base()
     if not database_exists("sqlite:///test.sqlite"):
         create_database("sqlite:///test.sqlite")
-    database.base.metadata.create_all(bind=engine)
+    base.metadata.create_all(bind=engine)
     yield engine
     drop_database("sqlite:///test.sqlite")
 
