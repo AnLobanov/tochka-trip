@@ -25,6 +25,7 @@ env:
   DB_SERVER: postgresql+psycopg2://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}}@postgres/${{ secrets.DB_NAME }}
   REDIS_SERVER: ${{ secrets.REDIS_SERVER }}
   BASE_URL: ${{ secrets.BASE_URL }}
+  TEST: TRUE
 
 jobs:
   test:

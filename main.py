@@ -48,7 +48,8 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-db_init()
+if environ["TEST"] == "FALSE":
+    db_init()
 
 def swagger_monkey_patch(*args, **kwargs):
     return get_swagger_ui_html(
@@ -60,7 +61,8 @@ applications.get_swagger_ui_html = swagger_monkey_patch
 
 @app.on_event("startup")
 async def startup(db: Session = Depends(db_depends)):
-    init_mock(db)
+    if environ["TEST"] == "TRUE":
+         init_mock(db)
 
 @app.get('/echo', tags=["Первая домашка"], responses={
     200: {"description": "Все заголовки входящего запроса", "content": {

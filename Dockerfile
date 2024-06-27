@@ -30,5 +30,6 @@ ARG REDIS_SERVER
 ENV REDIS_SERVER=${REDIS_SERVER}
 ARG BASE_URL
 ENV BASE_URL=${BASE_URL}
+ENV TEST=FALSE
 
 ENTRYPOINT alembic revision --autogenerate -m "init" && alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 80 & celery -A tasks.tasks:celery worker --loglevel=INFO --pool=solo
