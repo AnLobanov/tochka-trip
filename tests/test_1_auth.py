@@ -59,7 +59,7 @@ def test_resend_successful(client):
     assert response.json() == {"result": "success"}
 
 def test_verify_successful(client, global_data):
-    response = client.get('/auth/verify/' + global_data['id'])
+    response = client.get('/auth/verify/' + global_data['id'] + '?restore=false')
     assert response.status_code == status.HTTP_200_OK
     
 def test_verify_wrong(client):
