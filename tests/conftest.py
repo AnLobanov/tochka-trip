@@ -12,10 +12,10 @@ from alembic.util.exc import CommandError
 @pytest.fixture(scope="session")
 def db_engine():
     engine = create_engine("sqlite:///test.sqlite")
-    base = declarative_base()
+    # base = declarative_base()
     if not database_exists("sqlite:///test.sqlite"):
         create_database("sqlite:///test.sqlite")
-    base.metadata.create_all(bind=engine)
+    database.base.metadata.create_all(bind=engine)
     # try:
     #     alembic_cfg = Config("alembic.ini")
     #     command.revision(alembic_cfg, autogenerate=True, message="init")
