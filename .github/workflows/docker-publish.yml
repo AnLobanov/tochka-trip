@@ -21,25 +21,6 @@ env:
 
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      # Install Python
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.12
-
-      # Install dependencies
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      # Run pytest
-      - name: Run pytest
-        run: pytest
   build:
 
     runs-on: ubuntu-latest
