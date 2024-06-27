@@ -13,6 +13,19 @@ on:
   pull_request:
     branches: [ "main", "dev" ]
 
+env:
+  MAIL_USERNAME: {{ secrets.MAIL_USERNAME }}
+  MAIL_PASSWORD: {{ secrets.MAIL_PASSWORD }}
+  MAIL_SERVER: {{ secrets.MAIL_SERVER }}
+  JWT_ALGORITHM: {{ secrets.JWT_ALGORITHM }}
+  JWT_ACCESS_SECRET: {{ secrets.JWT_ACCESS_SECRET }}
+  JWT_REFRESH_SECRET: {{ secrets.JWT_REFRESH_SECRET }}
+  JWT_ACCESS_MINUTES: {{ secrets.JWT_ACCESS_MINUTES }}
+  JWT_REFRESH_DAYS: {{ secrets.JWT_REFRESH_DAYS }}
+  DB_SERVER: postgresql+psycopg2://{{ secrets.DB_USER }}:{{ secrets.DB_PASSWORD }}}@postgres/{{ secrets.DB_NAME }}
+  REDIS_SERVER: {{ secrets.REDIS_SERVER }}
+  BASE_URL: {{ secrets.BASE_URL }}
+
 jobs:
   test:
     runs-on: ubuntu-latest

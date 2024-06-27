@@ -5,16 +5,15 @@ from sqlalchemy.orm import Session
 from sqlalchemy_utils import database_exists, drop_database, create_database
 from data import database, models
 from main import app
-from config import DB_SERVER
 
 @pytest.fixture(scope="session")
 def db_engine():
-    engine = create_engine(DB_SERVER + "test")
-    if not database_exists(DB_SERVER + "test"):
-        create_database(DB_SERVER + "test")
+    engine = create_engine("sqlite:///test.sqlite")
+    if not database_exists("sqlite:///test.sqlite"):
+        create_database("sqlite:///test.sqlite")
     database.base.metadata.create_all(bind=engine)
     yield engine
-    drop_database(DB_SERVER + "test")
+    drop_database("sqlite:///test.sqlite")
 
 @pytest.fixture(scope="function")
 def db(db_engine):
