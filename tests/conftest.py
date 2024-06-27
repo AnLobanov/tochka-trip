@@ -16,12 +16,12 @@ def db_engine():
     if not database_exists("sqlite:///test.sqlite"):
         create_database("sqlite:///test.sqlite")
     base.metadata.create_all(bind=engine)
-    try:
-        alembic_cfg = Config("alembic.ini")
-        command.revision(alembic_cfg, autogenerate=True, message="init")
-        command.upgrade(alembic_cfg, "head")
-    except CommandError as e:
-        print(f"Error running Alembic commands: {str(e)}")
+    # try:
+    #     alembic_cfg = Config("alembic.ini")
+    #     command.revision(alembic_cfg, autogenerate=True, message="init")
+    #     command.upgrade(alembic_cfg, "head")
+    # except CommandError as e:
+    #     print(f"Error running Alembic commands: {str(e)}")
     yield engine
     drop_database("sqlite:///test.sqlite")
 
