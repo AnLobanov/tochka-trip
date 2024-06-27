@@ -5,6 +5,8 @@ from sqlalchemy.orm import Session, declarative_base
 from sqlalchemy_utils import database_exists, drop_database, create_database
 from data import database, models
 from main import app
+from alembic.config import Config
+from alembic import command
 
 @pytest.fixture(scope="session")
 def db_engine():
@@ -13,6 +15,13 @@ def db_engine():
     if not database_exists("sqlite:///test.sqlite"):
         create_database("sqlite:///test.sqlite")
     base.metadata.create_all(bind=engine)
+    alembic_cfg = Config("data/migrations/alembic.ini")
+    alembic_cfg.set_main_option("script_location", "data/migrations")
+
+    def init_alembic_migrations():
+        command.init(alembic_cfg, "data/migrations")
+
+    init_alembic_migrations()
     yield engine
     drop_database("sqlite:///test.sqlite")
 
