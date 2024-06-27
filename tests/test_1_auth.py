@@ -60,7 +60,7 @@ def test_resend_successful(client):
 
 def test_verify_successful(client, global_data):
     response = client.get('/auth/verify/' + global_data['id'])
-    print(response.content)
+    print(response.text)
     assert response.status_code == status.HTTP_200_OK
     
 def test_verify_wrong(client):
