@@ -1,0 +1,8 @@
+docker-compose.yml
+.github
+.gitignore 
+__pycache__
+.anima
+versions
+.pytest_cache
+.vscode 
