@@ -52,16 +52,16 @@ class Auth:
         return db_auth
 
     def get_auth(db: Session, id: str) -> models.Auth:
-        return db.query(models.Auth).filter(models.Auth.id == id).first()
+        return db.query(models.Auth).filter(models.Auth.id == uuid.UUID(id)).first()
 
     def verified(db: Session, id: str) -> bool:
-        return db.query(models.Auth).filter(models.Auth.id == id).first().verified
+        return db.query(models.Auth).filter(models.Auth.id == uuid.UUID(id)).first().verified
 
     def verified_email(db: Session, email: str) -> bool:
         return db.query(models.Auth).filter(models.Auth.email == email).first().verified
 
     def verify(db: Session, id: str):
-        db_auth = db.query(models.Auth).get(id)
+        db_auth = db.query(models.Auth).get(uuid.UUID(id))
         db_auth.verified = True
         db.commit()
 
@@ -86,12 +86,12 @@ class Auth:
         return new_id
 
     def change_password(db: Session, id: str, password: str):
-        db_auth = db.query(models.Auth).get(id)
+        db_auth = db.query(models.Auth).get(uuid.UUID(id))
         db_auth.hashed = hash.hash(password)
         db.commit()
 
     def get_email(db: Session, id: str):
-        return db.query(models.Auth).get(id).email
+        return db.query(models.Auth).get(uuid.UUID(id)).email
     
     def get_email_by_profile(db: Session, id: int):
         return db.query(models.Auth).filter(models.Auth.user_id == id).first().email
