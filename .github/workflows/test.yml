@@ -22,7 +22,7 @@ env:
   JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET }}
   JWT_ACCESS_MINUTES: ${{ secrets.JWT_ACCESS_MINUTES }}
   JWT_REFRESH_DAYS: ${{ secrets.JWT_REFRESH_DAYS }}
-  DB_SERVER: postgresql+psycopg2://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}}@postgres/${{ secrets.DB_NAME }}
+  DB_SERVER: sqlite:///test.sqlite
   REDIS_SERVER: ${{ secrets.REDIS_SERVER }}
   BASE_URL: ${{ secrets.BASE_URL }}
   TEST: TRUE
