@@ -4,6 +4,7 @@ from fastapi import applications
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.middleware.cors import CORSMiddleware
 from data.database import db_init
+from data.crud import init_mock
 from booking.booking import BookingRouter
 from admin.admin import AdminRouter
 from os import environ
@@ -55,6 +56,10 @@ def swagger_monkey_patch(*args, **kwargs):
         swagger_css_url="https://cdn.staticfile.net/swagger-ui/5.1.0/swagger-ui.min.css")
 
 applications.get_swagger_ui_html = swagger_monkey_patch
+
+@app.on_event("startup")
+async def startup():
+    init_mock()
 
 @app.get('/echo', tags=["Первая домашка"], responses={
     200: {"description": "Все заголовки входящего запроса", "content": {

@@ -5,6 +5,25 @@ from datetime import datetime
 from config import BASE_URL
 import uuid
 
+def init_mock(db: Session):
+    db.add(models.Global())
+    db.commit()
+    db.add(models.Plane(vendor="Airbus", model="A320", company="S7", number="VQ-BRD"))
+    db.add(models.Plane(vendor="Boeing", model="737", company="Aeroflot", number="VP-BBR"))
+    db.commit()
+    db.add(models.Place(plane=1, row=1, place=1))
+    db.add(models.Place(plane=1, row=1, place=2))
+    db.add(models.Place(plane=1, row=2, place=1))
+    db.add(models.Place(plane=1, row=2, place=2))
+    db.add(models.Place(plane=2, row=1, place=1))
+    db.add(models.Place(plane=2, row=1, place=2))
+    db.add(models.Place(plane=2, row=1, place=3))
+    db.add(models.Place(plane=2, row=1, place=3))
+    db.commit()
+    db.add(models.Flight(number="SU123", arrival="SVO", depatrure="LED", price=1000.99, plane=1, arrivalTime="2021-09-01 12:00:00", depatrureTime="2021-09-01 10:00:00"))
+    db.commit()
+
+
 class Auth:
     def user_exists(db: Session, email: str) -> bool:
         return bool(db.query(models.Auth).filter(models.Auth.email == email).first())

@@ -31,7 +31,6 @@ ENV REDIS_SERVER=${REDIS_SERVER}
 ARG BASE_URL
 ENV BASE_URL=${BASE_URL}
 
-RUN alembic init data/migrations
 RUN alembic revision --autogenerate -m "init"
 RUN alembic upgrade head
 ENTRYPOINT celery -A tasks.tasks:celery worker --loglevel=INFO --pool=solo
