@@ -1,13 +1,12 @@
 import jwt
-from os import environ
 from datetime import datetime, timedelta
 import config as config
 
 ACCESS_SECRET = config.JWT_ACCESS_SECRET
 REFRESH_SECRET = config.JWT_REFRESH_SECRET
 ALGORITHM = config.JWT_ALGORITHM
-ACCESS_EXPIRE = timedelta(minutes=config.JWT_ACCESS_MINUTES)
-REFRESH_EXPIRE = timedelta(days=config.JWT_REFRESH_DAYS)
+ACCESS_EXPIRE = timedelta(minutes=int(config.JWT_ACCESS_MINUTES))
+REFRESH_EXPIRE = timedelta(days=int(config.JWT_REFRESH_DAYS))
 
 def access_token(id: int, role: str) -> str:
     payload = {"expire": (datetime.today() + ACCESS_EXPIRE).ctime(), "id": id, "role": role}
