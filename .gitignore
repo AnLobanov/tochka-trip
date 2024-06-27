@@ -3,3 +3,5 @@ __pycache__
 versions
 .pytest_cache
 .vscode 
+docker-compose.yml
+nginx.conf
