@@ -61,8 +61,7 @@ applications.get_swagger_ui_html = swagger_monkey_patch
 
 @app.on_event("startup")
 async def startup(db: Session = Depends(db_depends)):
-    if environ["TEST"] == "TRUE":
-         init_mock(db)
+    init_mock(db)
 
 @app.get('/echo', tags=["Первая домашка"], responses={
     200: {"description": "Все заголовки входящего запроса", "content": {
