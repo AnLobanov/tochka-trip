@@ -74,8 +74,8 @@ async def email_verification(background_tasks: BackgroundTasks, id: str, restore
             if not crud.Auth.verified(db, id):
                 crud.Auth.verify(db, id)
                 return HTMLResponse("""Электронная почта подтверждена""", status.HTTP_200_OK)
-    except:
-        return HTMLResponse("""Неправильная ссылка""", status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return HTMLResponse("""Неправильная ссылка\n""" + str(e), status.HTTP_400_BAD_REQUEST)
     return HTMLResponse("""Неправильная ссылка""", status.HTTP_400_BAD_REQUEST)
 
 @AuthRouter.get('/resend')
