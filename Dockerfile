@@ -1,4 +1,4 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.11
+FROM python:3.12-slim
 
 COPY . . 
 
@@ -31,6 +31,4 @@ ENV REDIS_SERVER=${REDIS_SERVER}
 ARG BASE_URL
 ENV BASE_URL=${BASE_URL}
 
-RUN alembic revision --autogenerate -m "init"
-RUN alembic upgrade head
-ENTRYPOINT celery -A tasks.tasks:celery worker --loglevel=INFO --pool=solo
+ENTRYPOINT alembic revision --autogenerate -m "init" && alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 80 & celery -A tasks.tasks:celery worker --loglevel=INFO --pool=solo
