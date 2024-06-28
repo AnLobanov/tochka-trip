@@ -108,10 +108,10 @@ class Booking:
             for place in places:
                 if place.id not in occupied:
                     p = place.__dict__
-                    p["status"] == "free"
+                    p["status"] = "free"
                 else:
                     p = place.__dict__
-                    p["status"] == "occupied"
+                    p["status"] = "occupied"
                 freeplaces.append(p)
             flight["places"] = freeplaces
             flight["plane"] = db.query(models.Plane).filter(models.Place.id == flight["plane"]).first().__dict__
