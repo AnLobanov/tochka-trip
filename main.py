@@ -4,7 +4,7 @@ from auth.auth import AuthRouter
 from fastapi import applications
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.middleware.cors import CORSMiddleware
-from data.database import db_init, db_depends
+from data.database import db_init, db_depends, engine
 from data.crud import init_mock
 from booking.booking import BookingRouter
 from admin.admin import AdminRouter
@@ -60,7 +60,9 @@ def swagger_monkey_patch(*args, **kwargs):
 applications.get_swagger_ui_html = swagger_monkey_patch
 
 @app.on_event("startup")
-async def startup(db: Session = Depends(db_depends)):
+async def startup():
+    connection = engine.connect()
+    db = Session(bind=connection)
     init_mock(db)
 
 @app.get('/echo', tags=["Первая домашка"], responses={
