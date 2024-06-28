@@ -15,12 +15,9 @@ def init_mock(db: Session):
     db.add(models.Place(plane=1, row=1, place=2))
     db.add(models.Place(plane=1, row=2, place=1))
     db.add(models.Place(plane=1, row=2, place=2))
-    db.add(models.Place(plane=2, row=1, place=1))
-    db.add(models.Place(plane=2, row=1, place=2))
-    db.add(models.Place(plane=2, row=1, place=3))
-    db.add(models.Place(plane=2, row=1, place=3))
     db.commit()
     db.add(models.Flight(number="SU123", arrival="SVO", depatrure="LED", price=1000.99, plane=1, arrivalTime="2021-09-01 12:00:00", depatrureTime="2021-09-01 10:00:00"))
+    db.add(models.Flight(number="SU321", arrival="LED", depatrure="SVO", price=1000.99, plane=2, arrivalTime="2021-09-02 10:00:00", depatrureTime="2021-09-02 12:00:00"))
     db.commit()
 
 
